@@ -1,2 +1,4 @@
 .web
 pynecone.db
+.idea
+__pycache__
