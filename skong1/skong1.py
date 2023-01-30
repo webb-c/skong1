@@ -56,31 +56,39 @@ class State(pc.State):
 def index():
     return pc.center(
         pc.vstack(
-            pc.heading(
-                "Click!",
-                font_size="2em",
-                margin_bottom=10,
-            ),
             pc.hstack(
-                pc.button(
-                    "-",
-                    on_click=State.decrese_clicks,
-                    size="lg",
-                ),
-                pc.text(State.total_clicks),
-                pc.button(
-                    "+",
-                    on_click=State.increase_clicks,
-                    size="lg",
-                ),
-                spacing="20px",
+                pc.link(pc.text("HBD"), href="http://localhost:3000/"),
+                pc.link(pc.text("GIFT"), href="http://localhost:3000/gift"),
+                pc.link(pc.text("LETTER"), href="http://localhost:3000/letter"),
+                pc.link(pc.text("TIMELINE"), href="http://localhost:3000/timeline"),
+                spacing="50px"
             ),
+            pc.heading(
+                "Happy Birthday!",
+                font_size="2em",
+                margin_bottom=20,
+            ),
+            pc.text("cake img"),
         ),
-        padding_top="10%",
+        padding_top="3%",
         font_size="2em",
     )
 
+# GIFT
+def gift():
+    return pc.center(pc.text("gift page"), padding_top="3%")
+# LETTER
+def letter():
+    return pc.center(pc.text("letter page"), padding_top="3%")
+# TIMELINE
+def timeline():
+    return pc.center(pc.text("timeline page"), padding_top="3%")
 
 app = pc.App(state=State)
 app.add_page(index)
+app.add_page(gift)
+app.add_page(letter)
+app.add_page(timeline)
 app.compile()
+
+# HBD (home)
