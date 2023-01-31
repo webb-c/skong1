@@ -21,23 +21,24 @@ def topBar():
 
 def bottom():
     return pc.hstack(
-        # tooptip 적용이 안되는 듯?
-        pc.tooltip(
-            pc.link(
+        pc.link(
+            pc.tooltip(
                 pc.image(src="/data/github-mark.png", width="2em"),
-                href ="https://github.com/webb-c/skong1",
+                label="More detail"
             ),
-            label="More detail"
+            href ="https://github.com/webb-c/skong1",
         ),
-        pc.tooltip(
-            pc.link(
+        pc.link(
+            pc.tooltip(
                 pc.image(src="/data/gmail.png", width="2em"),
-                href="mailto:jwst0210@gmail.com",
+                label="Send Thanks!"
             ),
-            label="Send Thanks!"
+            href = "mailto:jwst0210@gmail.com",
         ),
         spacing="50px"
     )
+
+# HBD (home)
 def index():
     return pc.center(
         pc.vstack(
@@ -107,5 +108,3 @@ app.add_page(gift)
 app.add_page(letter)
 app.add_page(timeline)
 app.compile()
-
-# HBD (home)
