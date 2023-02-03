@@ -1,12 +1,25 @@
 from pcconfig import config
 import pynecone as pc
+from pynecone.base import Base
 
+class Letter(Base):
+    text: str
+    date: str
 class State(pc.State):
-    total_clicks = 0
-    def increase_clicks(self):
-        self.total_clicks += 1
-    def decrese_clicks(self):
-        self.total_clicks -= 1
+    #letter state
+    msg: list[Letter] = []
+    IsOpen = False
+    buttonText = "Open"
+    text = "test"
+    def reading(self):
+        if self.IsOpen :
+            self.IsOpen = False
+            self.buttonText = "Open"
+            self.msg = []
+        else :
+            self.IsOpen = True
+            self.buttonText = "Close"
+            self.msg = [Letter(text=self.text, date="February 05, 2023 11:29 PM")]
 
 def topBar():
     return pc.hstack(
@@ -14,7 +27,7 @@ def topBar():
                 pc.link(pc.text("GIFT"), href="http://localhost:3000/gift"),
                 pc.link(pc.text("LETTER"), href="http://localhost:3000/letter"),
                 pc.link(pc.text("TIMELINE"), href="http://localhost:3000/timeline"),
-                spacing="150px",
+                spacing="130px",
                 font_size="1em",
                 margin_bottom="5%"
             )
@@ -35,7 +48,34 @@ def bottom():
             ),
             href = "mailto:jwst0210@gmail.com",
         ),
-        spacing="50px"
+        spacing="50px",
+        padding_top = "5%",
+        padding_bottom="5%",
+    )
+
+def message(message):
+    return pc.box(
+        pc.vstack(
+            pc.box(
+                pc.text(message.text),
+                font_size = "1.2rem",
+                bg = "#FFFFFF",
+                padding = "1rem",
+                border_radius = "3px",
+                width = "100%"
+            ),
+            pc.box(
+                pc.text(message.date),
+                display="flex",
+                font_size="0.8rem",
+                color="#666"
+            ),
+            spacing="1rem",
+        ),
+        bg="#f0f8ff",
+        width="80%",
+        padding="1.5rem",
+        border_radius="5px",
     )
 
 # HBD (home)
@@ -78,11 +118,19 @@ def letter():
             pc.heading(
                 "Dear...",
                 font_size="2em",
-                margin_bottom=20,
             ),
-            pc.text("상세한 편지 내용", margin_bottom=20),
+            pc.image(src="/data/letter4.gif", width="23em"),
+            pc.foreach(State.msg, message),
+            pc.box(),
+            pc.button(
+                State.buttonText,
+                bg="rgb(51 128 255)",
+                color="white",
+                size="lg",
+                on_click=State.reading,
+            ),
             bottom(),
-            spacing="20px"
+            spacing="15px"
         ),
         padding_top="3%",
     )
