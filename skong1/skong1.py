@@ -27,7 +27,7 @@ def topBar():
                 pc.link(pc.text("GIFT"), href="http://localhost:3000/gift"),
                 pc.link(pc.text("LETTER"), href="http://localhost:3000/letter"),
                 pc.link(pc.text("TIMELINE"), href="http://localhost:3000/timeline"),
-                spacing="130px",
+                spacing="120px",
                 font_size="1em",
                 margin_bottom="5%"
             )
@@ -103,7 +103,42 @@ def gift():
             pc.heading(
                 "Gift",
                 font_size="2em",
-                margin_bottom=20,
+            ),
+            pc.text(
+                "About allo1001PD",
+                as_="i",
+                font_size="1.5em",
+            ),
+            pc.image(src="/data/243953504.jpg", width="25em"),
+            pc.text("상세 정보", font_size="1.3em", as_="b"),
+            pc.vstack(
+                pc.box(
+                    pc.markdown(
+                        """
+                        - 모델명 : allo1001PD
+                        - 전지 종류 : 리튬폴리머 2차 전지
+                        - 정격 용량 :
+                            - 3.7VDC
+                            - 10000mAh
+                            - 37Wh
+                        - 사이즈 : 145 X 68 X 16 mm
+                        - 무게 : 225g
+                        """
+                    ),
+                    width = "100%"
+                ),
+                pc.text("지원 기능", font_size="1.3em", as_="b"),
+                pc.box(
+                    pc.markdown(
+                        """
+                        - 3개의 출력 포트를 사용한 최대 3개의 기기 동시 충전 지원
+                        - QC3.0/PD3.0 고속 충전 지원 (고속 충전시 LED 색상 변화)
+                        - 과충전 방지 및 안정성 테스트 완료
+                        """
+                    ),
+                    width="100%"
+                ),
+                spacing="20px"
             ),
             bottom(),
             spacing="20px"
