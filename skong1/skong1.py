@@ -91,6 +91,11 @@ def message(message):
     return pc.box(
         pc.vstack(
             pc.box(
+                element="iframe",
+                src="https://www.youtube.com/embed/BRs0GGCT4bU?autoplay=1&mute=0",
+                width="100%",
+            ),
+            pc.box(
                 pc.foreach(message.text, pc.text),
                 font_size = "1.1rem",
                 bg = "#FFFFFF",
