@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 pre = datetime(2015, 3, 2)
 now = datetime.now()
 class Letter(Base):
-    text: str
+    text: list[str]
     date: str
 
 class State(pc.State):
@@ -15,7 +15,7 @@ class State(pc.State):
     msg: list[Letter] = []
     IsOpen = False
     buttonText = "Open"
-    text = "test"
+    text = TLdetail.letter22
     def reading(self):
         if self.IsOpen :
             self.IsOpen = False
@@ -24,7 +24,7 @@ class State(pc.State):
         else :
             self.IsOpen = True
             self.buttonText = "Close"
-            self.msg = [Letter(text=self.text, date="February 05, 2023 11:29 PM")]
+            self.msg = [Letter(text=self.text.split("\n"), date="February 05, 2023 11:29 PM")]
 
     #timeline state
     value: int = 0
@@ -91,8 +91,8 @@ def message(message):
     return pc.box(
         pc.vstack(
             pc.box(
-                pc.text(message.text),
-                font_size = "1.2rem",
+                pc.foreach(message.text, pc.text),
+                font_size = "1.1rem",
                 bg = "#FFFFFF",
                 padding = "1rem",
                 border_radius = "3px",
