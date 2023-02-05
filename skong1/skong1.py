@@ -1,10 +1,20 @@
 from pcconfig import config
 import pynecone as pc
 from pynecone.base import Base
+from datetime import datetime, timedelta
 
+# for time
+pre = datetime(2015, 3, 2)
+now = datetime.now()
 class Letter(Base):
     text: str
     date: str
+
+class Time(Base):
+    cls: str
+    detail: str
+    pic: str
+
 class State(pc.State):
     #letter state
     msg: list[Letter] = []
@@ -20,6 +30,20 @@ class State(pc.State):
             self.IsOpen = True
             self.buttonText = "Close"
             self.msg = [Letter(text=self.text, date="February 05, 2023 11:29 PM")]
+
+    #timeline state
+    value: int = 0
+    # default_value: int = 100
+    value_date: str = "2015. 03. 02"
+    gap = (now-pre).days
+    time: list[Time] = [Time(cls="중학교", detail="1", pic="/data/중등1.jpeg"), Time(cls="고등학교", detail="2", pic="/data/고등1.jpeg"), Time(cls="대학교", detail="3", pic="/data/대학1.jpeg")]
+
+    def set_val(self, value):
+        self.value = value
+    @pc.var
+    def set_time(self):
+        dt = pre + timedelta(days=self.value * self.gap // 100)
+        return str(dt.year)+". "+str(dt.month)+". "+str(dt.day)
 
 def topBar():
     return pc.hstack(
@@ -53,6 +77,21 @@ def bottom():
         padding_bottom="5%",
     )
 
+def timetransfer(time):
+    return pc.accordion(
+            pc.accordion_item(
+                pc.accordion_button(
+                    pc.text(time.cls, font_size="1.1em", as_="b"),
+                    pc.accordion_icon(),
+                ),
+                pc.accordion_panel(
+                    pc.vstack(
+                        pc.text(time.detail),
+                        pc.image(src=time.pic, width="15em")
+                    )
+                ),
+            )
+    )
 def message(message):
     return pc.box(
         pc.vstack(
@@ -178,6 +217,26 @@ def timeline():
                 "Timeline",
                 font_size="2em",
                 margin_bottom=20,
+            ),
+            pc.text(
+                "Our history",
+                as_="i",
+                font_size="1.1em",
+            ),
+            pc.box(),
+            pc.heading(State.set_time, font_size="1.2em", color="rgb(51 128 255)"),
+            pc.container(
+                pc.slider(default_value=0, on_change=State.set_value),
+                bg="#f0f8ff",
+                center_content=True,
+                border_radius="0.5em",
+                padding="0.8em"
+            ),
+            pc.box(),
+            pc.hstack(
+                pc.foreach(State.time, timetransfer),
+                spacing="10px",
+                align_items="left"
             ),
             bottom(),
             spacing="20px"
