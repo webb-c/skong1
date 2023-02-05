@@ -119,10 +119,25 @@ def index():
             topBar(),
             pc.heading(
                 "Happy Birthday!",
-                font_size="2em",
-                margin_bottom=20,
+                font_size="2em"
             ),
-            pc.image(src="/data/cake.png", width="30em", margin_bottom=20),
+            pc.image(src="/data/cake.png", width="27em"),
+            pc.vstack(
+                pc.text("본 페이지는 김성빈의 22번째 생일을 기념하여 특별히 제작된 웹 페이지 입니다.", font_size="1.1em"),
+                pc.text("어느날 갑자기 접속이 되지 않거나 버그가 발생할 수도 있는 허술한 사이트라 하더라도", font_size="1.1em"),
+                pc.text("부디 너그러운 마음으로 제 선물을 즐겨주시길 바랍니다.", font_size="1.1em"),
+                spacing="5px",
+            ),
+            pc.box(padding_top="3%"),
+            pc.image(src="/data/arrow.png", width="5em"),
+            pc.box(padding_top="3%"),
+            pc.text(
+                "추억의 전당",
+                as_="i",
+                font_size="1.3em",
+            ),
+            pc.box(padding_top="3%"),
+            TLdetail.gallery(), # 갤러리용 사진 호출
             bottom(),
             spacing="20px"
         ),
@@ -144,35 +159,46 @@ def gift():
                 font_size="1.5em",
             ),
             pc.image(src="/data/243953504.jpg", width="25em"),
-            pc.text("상세 정보", font_size="1.3em", as_="b"),
-            pc.vstack(
-                pc.box(
-                    pc.markdown(
-                        """
-                        - 모델명 : allo1001PD
-                        - 전지 종류 : 리튬폴리머 2차 전지
-                        - 정격 용량 :
-                            - 3.7VDC
-                            - 10000mAh
-                            - 37Wh
-                        - 사이즈 : 145 X 68 X 16 mm
-                        - 무게 : 225g
-                        """
+            pc.accordion(
+                pc.accordion_item(
+                    pc.accordion_button(
+                        pc.text("상세 정보", font_size="1.3em", as_="b"),
+                        pc.accordion_icon(),
                     ),
-                    width = "100%"
-                ),
-                pc.text("지원 기능", font_size="1.3em", as_="b"),
-                pc.box(
-                    pc.markdown(
-                        """
-                        - 3개의 출력 포트를 사용한 최대 3개의 기기 동시 충전 지원
-                        - QC3.0/PD3.0 고속 충전 지원 (고속 충전시 LED 색상 변화)
-                        - 과충전 방지 및 안정성 테스트 완료
-                        """
+                    pc.accordion_panel(
+                        pc.markdown(
+                            """
+                            - 모델명 : allo1001PD
+                            - 전지 종류 : 리튬폴리머 2차 전지
+                            - 정격 용량 :
+                                - 3.7VDC
+                                - 10000mAh
+                                - 37Wh
+                            - 사이즈 : 145 X 68 X 16 mm
+                            - 무게 : 225g
+                            """
+                        ),
                     ),
-                    width="100%"
                 ),
-                spacing="20px"
+                width="100%"
+            ),
+            pc.accordion(
+                pc.accordion_item(
+                    pc.accordion_button(
+                        pc.text("지원 기능", font_size="1.3em", as_="b"),
+                        pc.accordion_icon(),
+                    ),
+                    pc.accordion_panel(
+                        pc.markdown(
+                            """
+                            - 3개의 출력 포트를 사용한 최대 3개의 기기 동시 충전 지원
+                            - QC3.0/PD3.0 고속 충전 지원 (고속 충전시 LED 색상 변화)
+                            - 과충전 방지 및 안정성 테스트 완료
+                            """
+                        ),
+                    ),
+                ),
+                width="100%"
             ),
             bottom(),
             spacing="20px"
@@ -219,7 +245,7 @@ def timeline():
                 font_size="1.1em",
             ),
             pc.box(),
-            pc.heading(State.set_time, font_size="1.2em", color="rgb(51 128 255)"),
+            pc.heading(State.set_time, font_size="1.2em", color="rgb(60 135 240)"),
             pc.container(
                 pc.slider(default_value=0, on_change=State.set_value),
                 bg="#f0f8ff",
