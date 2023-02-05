@@ -1,4 +1,4 @@
-from pcconfig import config
+import TLdetail
 import pynecone as pc
 from pynecone.base import Base
 from datetime import datetime, timedelta
@@ -9,11 +9,6 @@ now = datetime.now()
 class Letter(Base):
     text: str
     date: str
-
-class Time(Base):
-    cls: str
-    detail: str
-    pic: str
 
 class State(pc.State):
     #letter state
@@ -36,7 +31,7 @@ class State(pc.State):
     # default_value: int = 100
     value_date: str = "2015. 03. 02"
     gap = (now-pre).days
-    time: list[Time] = [Time(cls="중학교", detail="1", pic="/data/중등1.jpeg"), Time(cls="고등학교", detail="2", pic="/data/고등1.jpeg"), Time(cls="대학교", detail="3", pic="/data/대학1.jpeg")]
+    time: list[TLdetail.Time] = TLdetail.time
 
     def set_val(self, value):
         self.value = value
