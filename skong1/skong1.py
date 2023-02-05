@@ -93,7 +93,7 @@ def message(message):
             pc.box(
                 element="iframe",
                 src="https://www.youtube.com/embed/BRs0GGCT4bU?autoplay=1&mute=0",
-                width="100%",
+                width="50em",
             ),
             pc.box(
                 pc.foreach(message.text, pc.text),
@@ -112,7 +112,7 @@ def message(message):
             spacing="1rem",
         ),
         bg="#f0f8ff",
-        width="80%",
+        width="100%",
         padding="1.5rem",
         border_radius="5px",
     )
