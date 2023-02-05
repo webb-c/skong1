@@ -271,8 +271,8 @@ def timeline():
     )
 
 app = pc.App(state=State)
-app.add_page(index)
-app.add_page(gift)
-app.add_page(letter)
-app.add_page(timeline)
+app.add_page(index, title="HBD App", image="/favicon.ico")
+app.add_page(gift, title="Gift", image="/favicon.ico")
+app.add_page(letter, title="Letter", image="/favicon.ico")
+app.add_page(timeline, title="Timeline", image="/favicon.ico")
 app.compile()
